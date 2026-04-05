@@ -5,9 +5,9 @@ import { User } from "firebase/auth";
 import { Usuario, Area, Categoria, Hilo } from "@/types";
 
 // Importamos los componentes de la interfaz de Dashboard. Estos son sub-componentes.
-import Sidebar from "./Sidebar"; // Columna izquierda para selección de año
-import MiddleColumn from "./MiddleColumn"; // Columna central para áreas, categorías e hilos
-import ChatArea from "./ChatArea"; // Columna derecha para el chat
+import Sidebar from "../sidebar/Sidebar"; // Columna izquierda para selección de año
+import MiddleColumn from "../sidebar/MiddleColumn"; // Columna central para áreas, categorías e hilos
+import ChatArea from "../chat/ChatArea"; // Columna derecha para el chat
 import Header from "./Header"; // Encabezado de la aplicación
 
 // Importamos la configuración de Firebase para la base de datos
