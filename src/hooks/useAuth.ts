@@ -88,7 +88,7 @@ export function useAutenticacion() {
       uid: usuarioAuth.uid,
       nombre: usuarioAuth.displayName || "Usuario",
       cargo: cargo,
-      rol: "empleado", // Por defecto, el rol es "empleado"
+      rol: "admin", // Por defecto, el rol es "admin"
       email: usuarioAuth.email || "",
       empresa: empresa,
       avatarColor: randomColor,
