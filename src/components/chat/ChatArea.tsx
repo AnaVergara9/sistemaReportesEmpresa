@@ -7,8 +7,6 @@ import { collection, onSnapshot, orderBy, addDoc, serverTimestamp, query, update
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const [archivoSeleccionado, setArchivoSeleccionado] = useState<File | null>(null);
-
 interface PropiedadesChatArea {
   canalActivo: Canal | null;
   subcanalActivo: Subcanal | null;
@@ -21,6 +19,7 @@ export default function ChatArea({ canalActivo, subcanalActivo, hiloActivo, dato
   const [textoNuevoMensaje, setTextoNuevoMensaje] = useState("");
   const [mensajeCitado, setMensajeCitado] = useState<Mensaje | null>(null);
   const referenciaFinal = useRef<HTMLDivElement>(null);
+  const [archivoSeleccionado, setArchivoSeleccionado] = useState<File | null>(null);
 
   const rutaMensajes = `canales/${canalActivo?.id}/subcanales/${subcanalActivo?.id}/hilos/${hiloActivo.id}/mensajes`;
 
