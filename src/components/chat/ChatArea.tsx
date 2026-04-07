@@ -20,6 +20,7 @@ export default function ChatArea({ canalActivo, subcanalActivo, hiloActivo, dato
   const [mensajeCitado, setMensajeCitado] = useState<Mensaje | null>(null);
   const referenciaFinal = useRef<HTMLDivElement>(null);
   const [archivoSeleccionado, setArchivoSeleccionado] = useState<File | null>(null);
+  const [enviando, setEnviando] = useState(false);
 
   const rutaMensajes = `canales/${canalActivo?.id}/subcanales/${subcanalActivo?.id}/hilos/${hiloActivo.id}/mensajes`;
 
@@ -37,15 +38,21 @@ export default function ChatArea({ canalActivo, subcanalActivo, hiloActivo, dato
   }, [mensajes]);
 
   const enviarMensaje = async () => {
-    if (!canalActivo || !subcanalActivo) return;
+    if (!canalActivo || !subcanalActivo || enviando) return;
+
+    setEnviando(true);
 
     let archivoSubido = null;
     if (archivoSeleccionado) {
       archivoSubido = await subirArchivo(archivoSeleccionado);
+      if (!archivoSubido) {
+        setEnviando(false);
+        return; // Si falló la subida a Cloudinary, no guardamos nada en Firebase
+      }
     }
 
     {/* Evitar enviar vacíos */}
-    if (!textoNuevoMensaje.trim() && !archivoSubido) return;
+    if (!textoNuevoMensaje.trim() && !archivoSubido) {setEnviando(false);return};
 
     await addDoc(collection(db, rutaMensajes), {
       texto: textoNuevoMensaje,
@@ -53,6 +60,7 @@ export default function ChatArea({ canalActivo, subcanalActivo, hiloActivo, dato
       autorNombre: datosUsuario.nombre,
       autorEmpresa: datosUsuario.empresa,
       fecha: serverTimestamp(),
+      // Guardamos el objeto con la URL, el nombre y el tipo
       archivos: archivoSubido ? [archivoSubido] : [],
       reacciones: {},
       respondidoA: mensajeCitado ? {autorNombre: mensajeCitado.autorNombre, texto: mensajeCitado.texto} : null,
@@ -65,18 +73,30 @@ export default function ChatArea({ canalActivo, subcanalActivo, hiloActivo, dato
   const subirArchivo = async (archivo: File) => {
     const formData = new FormData();
     formData.append("file", archivo);
-    formData.append("upload_preset", "chat_upload");
+    formData.append("upload_preset", "chat_upload"); 
 
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dushkkeij/upload",
-      {
-        method: "POST",
-        body: formData,
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error?.message || "Error al subir");
       }
-    );
 
-    const data = await res.json();
-    return {url: data.secure_url, nombre: archivo.name, tipo: archivo.type,};
+      // Si todo sale bien, nos devuelve la URL
+      return { url: data.secure_url, nombre: archivo.name, tipo: archivo.type };
+    } catch (error) {
+      console.error("Error en la subida:", error);
+      alert("No se pudo subir el archivo: " + error);
+      return null;
+    }
   };
 
   const reaccionar = async (idMensaje: string, emoji: string) => {
