@@ -1,21 +1,24 @@
+export type Rol = "admin" | "empleado";
+
 export interface Usuario {
-  uid: string;
+  uid: string; // ID único del usuario
   nombre: string;
+  cargo: string;
+  rol: Rol;
   empresa: string;
   email: string;
   avatarColor: string;
   creadoEn: any;
 }
 
-export interface Area {
+export interface Canal {
   id: string;
   nombre: string;
   descripcion: string;
-  año: number;
   creadoEn: any;
 }
 
-export interface Categoria {
+export interface Subcanal {
   id: string;
   nombre: string;
   creadoEn: any;
@@ -24,7 +27,6 @@ export interface Categoria {
 export interface Hilo {
   id: string;
   nombre: string;
-  creadoPor: string;
   creadoEn: any;
 }
 
@@ -37,7 +39,7 @@ export interface ArchivoAdjunto {
 }
 
 export interface Reacciones {
-  [emoji: string]: string[]; // array of userIds
+  [emoji: string]: string[]; //usuarios que reaccionaron con ese emoji
 }
 
 export interface Mensaje {
@@ -45,7 +47,6 @@ export interface Mensaje {
   texto: string;
   autorId: string;
   autorNombre: string;
-  autorEmpresa: string;
   fecha: any;
   archivos: ArchivoAdjunto[];
   reacciones: Reacciones;

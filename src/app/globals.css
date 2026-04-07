@@ -2,15 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 30, 31, 34;
-  --background-end-rgb: 30, 31, 34;
+:root { /*rgb*/
+  --color-texto: 0, 0, 0;
+  --color-fondo: 173, 216, 230;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  color: rgb(var(--color-texto));
+  background: rgb(var(--color-fondo));
   font-family: 'Inter', sans-serif;
 }
 

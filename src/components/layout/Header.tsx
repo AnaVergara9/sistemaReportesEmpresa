@@ -28,6 +28,7 @@ export default function Header({ usuarioData, onLogout }: HeaderProps) {
         </div>
         <div className="flex flex-col">
           <span className="font-semibold text-sm leading-tight">{usuarioData.nombre}</span>
+          <span className="text-discord-muted text-[11px] leading-tight">{usuarioData.cargo}</span>
           <span className="text-discord-muted text-[11px] leading-tight">{usuarioData.empresa}</span>
         </div>
       </div>
@@ -35,7 +36,7 @@ export default function Header({ usuarioData, onLogout }: HeaderProps) {
       <Button 
         variant="ghost" 
         onClick={onLogout}
-        className="text-discord-muted hover:text-white hover:bg-discord-light gap-2"
+        className="text-discord-muted hover:text-white hover:bg-discord-light gap-2 absolute top-2 right-4"
       >
         <LogOut className="w-4 h-4" />
         <span className="hidden sm:inline">Cerrar sesión</span>

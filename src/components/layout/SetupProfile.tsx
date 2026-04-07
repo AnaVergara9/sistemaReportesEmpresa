@@ -3,16 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface SetupProfileProps {
-  onComplete: (empresa: string) => void;
+  onComplete: (empresa: string, cargo: string) => void;
 }
 
 export default function SetupProfile({ onComplete }: SetupProfileProps) {
   const [empresa, setEmpresa] = useState("");
+  const [cargo, setCargo] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (empresa.trim()) {
-      onComplete(empresa.trim());
+    if (empresa.trim() && cargo.trim()) {
+      onComplete(empresa.trim(), cargo.trim());
     }
   };
 
@@ -22,6 +23,16 @@ export default function SetupProfile({ onComplete }: SetupProfileProps) {
         <h1 className="text-2xl font-bold mb-4">Bienvenido</h1>
         <p className="text-discord-muted mb-6">Completa tu perfil para continuar.</p>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Cargo</label>
+            <Input 
+              value={cargo}
+              onChange={(e) => setCargo(e.target.value)}
+              placeholder="Ej. Gerente de Proyecto"
+              className="bg-discord-light border-none focus:ring-discord-accent text-white"
+              required
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium mb-1">Nombre de la Empresa</label>
             <Input 
