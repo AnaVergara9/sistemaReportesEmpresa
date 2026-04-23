@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST='{"components\\\\layout\\\\Dashboard.tsx -> @/lib/firebase":{"id":9506,"files":[]},"components\\\\layout\\\\Dashboard.tsx -> firebase/firestore":{"id":9842,"files":[]}}';

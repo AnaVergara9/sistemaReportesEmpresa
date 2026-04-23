@@ -1,1 +1,10 @@
-{}
+{
+  "components\\layout\\Dashboard.tsx -> @/lib/firebase": {
+    "id": 9506,
+    "files": []
+  },
+  "components\\layout\\Dashboard.tsx -> firebase/firestore": {
+    "id": 9842,
+    "files": []
+  }
+}

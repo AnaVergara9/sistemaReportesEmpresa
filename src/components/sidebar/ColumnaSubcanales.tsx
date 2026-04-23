@@ -30,7 +30,7 @@ export default function ColumnaSubcanales({ canalActivo, subcanalActivo, alSelec
   }, [canalActivo.id]);
 
   return (
-    <div className="w-60 bg-[#2b2d31] flex flex-col border-r border-white/10 h-full">
+    <div className="w-60 flex-shrink-0 bg-[#2b2d31] flex flex-col border-r border-white/10 h-full">
       <div className="p-4 border-b border-white/10 flex items-center justify-between">
         <div>
           <p className="text-gray-400 text-xs uppercase tracking-wide">Canal</p>

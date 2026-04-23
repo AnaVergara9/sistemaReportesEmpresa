@@ -7,6 +7,10 @@
   --color-fondo: 173, 216, 230;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   color: rgb(var(--color-texto));
   background: rgb(var(--color-fondo));
